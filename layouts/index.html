@@ -1,0 +1,28 @@
+{{ define "main" }}
+<h1>Welcome to {{ .Site.Title }}</h1>
+<p>This is the homepage of my site built with Hugo.</p>
+
+<h2>Recent Posts</h2>
+{{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections | default (where site.RegularPages "Section" "posts") }}
+{{ if $pages }}
+<ul class="recent-posts">
+    {{ range first 5 $pages }}
+    <li>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{ if .Date }}
+        <span class="post-date">({{ .Date.Format "January 2, 2006" }})</span>
+        {{ end }}
+    </li>
+    {{ end }}
+</ul>
+{{ else }}
+<p>No posts yet.</p>
+{{ end }}
+
+<h2>Quick Links</h2>
+<ul>
+    <li><a href="/posts/">All Posts</a></li>
+    <li><a href="/links/">Useful Links</a></li>
+</ul>
+{{ end }}
+
